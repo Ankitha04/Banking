@@ -18,7 +18,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	// Customer Name
+	// Customers Name
 	@NotNull
 	@Size(max = 25)
 	@Pattern(regexp = "^[a-zA-Z\s]+$")
