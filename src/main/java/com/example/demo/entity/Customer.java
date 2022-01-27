@@ -88,6 +88,10 @@ public class Customer {
 	// Deposit
 	@OneToOne(cascade = CascadeType.ALL)
 	private Deposit deposit;
+	
+	//Account
+		@OneToOne(cascade = CascadeType.ALL)
+		private Account account;
 
 	public Customer() {
 
@@ -179,6 +183,13 @@ public class Customer {
 
 	public void setDeposit(Deposit deposit) {
 		this.deposit = deposit;
+	}
+	
+	public Account getAccount() {
+		return account;
+	}
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 }
