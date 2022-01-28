@@ -19,7 +19,7 @@ import com.sun.istack.NotNull;
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	// Customers Name
@@ -88,15 +88,19 @@ public class Customer {
 	// Deposit
 	@OneToOne(cascade = CascadeType.ALL)
 	private Deposit deposit;
-	
-	//Account
-		@OneToOne(cascade = CascadeType.ALL)
-		private Account account;
+
+	// Account
+	@OneToOne(cascade = CascadeType.ALL)
+	private Account account;
+
+	// Withdrawal
+	@OneToOne(cascade = CascadeType.ALL)
+	private Withdraw withdraw;
 
 	public Customer() {
 
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -184,12 +188,21 @@ public class Customer {
 	public void setDeposit(Deposit deposit) {
 		this.deposit = deposit;
 	}
-	
+
 	public Account getAccount() {
 		return account;
 	}
+
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	public Withdraw getWithdraw() {
+		return withdraw;
+	}
+	
+	public void setWithdraw(Withdraw withdraw) {
+		this.withdraw = withdraw;
 	}
 
 }
