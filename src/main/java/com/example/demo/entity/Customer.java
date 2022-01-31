@@ -88,7 +88,7 @@ public class Customer {
 
 	// Account
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "account_id_ref", referencedColumnName = "accountId")
+	@JoinColumn(name = "account_id_ref", referencedColumnName = "accid")
 	private Account account;
 
 	public Customer() {
