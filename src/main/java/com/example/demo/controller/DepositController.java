@@ -15,9 +15,9 @@ import com.example.demo.service.DepositService;
 public class DepositController {
 	@Autowired
 	private DepositService depositService;
-	@PostMapping("/{id}/deposit")
+	@PostMapping("/deposit")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	void addDeposit(@RequestBody @Valid Deposit deposit, @PathVariable("id") Integer id) {
-		depositService.addDeposit(deposit, id);
+		depositService.addDeposit(deposit);
 }
 }

@@ -1,19 +1,20 @@
 package com.example.demo.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.transaction.Transaction;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name = "withdrawal")
@@ -22,15 +23,18 @@ public class Withdraw {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "withdrawal_id")
-	private Long id;
+	private Integer withId;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-	private Transaction transcation;
+	// Account Number
+	@Pattern(regexp = "[0-9 ]+")
+	@Size(max = 10)
+	@NotBlank
+	@NotNull
+	private String accountnum;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@MapsId
+	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "account_id_ref", referencedColumnName = "accountId")
 	private Account account;
 
 	// Withdraw Amount
@@ -38,14 +42,52 @@ public class Withdraw {
 	@Size(max = 10)
 	@NotBlank
 	@NotNull
-	private String wAmt;
+	private Double wthAmt;
+	private String description;
 
-	public String getwAmt() {
-		return wAmt;
+	public Withdraw() {
 	}
 
-	public void setwAmt(String wAmt) {
-		this.wAmt = wAmt;
+	public Withdraw(Integer withId, @NotNull @Size(max = 10) @Pattern(regexp = "^[1-9]+[0-9]*$") String accountnum,
+			@NotNull @Range(max = 10) Double wthAmt, String description) {
+		super();
+		this.withId = withId;
+		this.accountnum = accountnum;
+		this.wthAmt = wthAmt;
+		this.description = description;
+
+	}
+
+	public String getAccountnum() {
+		return accountnum;
+	}
+
+	public void setAccountnum(String accountnum) {
+		this.accountnum = accountnum;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getWthAmt() {
+		return wthAmt;
+	}
+
+	public void setWthAmt(Double wthAmt) {
+		this.wthAmt = wthAmt;
 	}
 
 }

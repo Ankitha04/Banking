@@ -19,10 +19,10 @@ public class AccountController {
 	@Autowired
 	private AccountService accountService;
 
-	@PostMapping("/{id}/account")
+	@PostMapping("/account")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	void addAccount(@RequestBody @Valid Account account, @PathVariable("id") Integer id) {
-		accountService.addAccount(account, id);
+		accountService.addAccount(account);
 	}
 
 }

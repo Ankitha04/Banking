@@ -2,7 +2,9 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +19,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 public class Account {
 
 	@Id
@@ -41,11 +43,40 @@ public class Account {
 	@Range(min = 500)
 	private Double initalDep;
 
+	// Customer Mapping
 	@OneToOne(mappedBy = "account")
 	private Customer customer;
 
-	@OneToMany(mappedBy = "account")
-	private List<Deposit> deposit;
+	// Deposit Mapping
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Deposit> deposits;
+
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Deposit> withdraw;
+
+	public List<Deposit> getWithdraw() {
+		return withdraw;
+	}
+
+	public void setWithdraw(List<Deposit> withdraw) {
+		this.withdraw = withdraw;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public List<Deposit> getDeposits() {
+		return deposits;
+	}
+
+	public void setDeposits(List<Deposit> deposits) {
+		this.deposits = deposits;
+	}
 
 	public String getCustId() {
 		return custId;
